@@ -31,6 +31,11 @@ class MyDocRenderer {
       return $files;
   }
 
+    public function wp_mydoc_show_news() {
+        $news = '<div class="mydoc-doctor-news"></div>';
+        return $news;
+    }
+
   public function wp_mydoc_show_doctor_first_name() {
     $first_name = '<span class="mydoc-doctor-first-name"></span>';
     return $first_name;
@@ -111,6 +116,7 @@ class MyDocShortcodeHandler {
     add_shortcode('wp_mydoc_bereitschaftszeiten', array($this->renderer, 'wp_mydoc_show_opening_times_local'));
     add_shortcode('wp_mydoc_abwesenheitszeiten', array($this->renderer, 'wp_mydoc_show_opening_times_absence'));
     add_shortcode('wp_mydoc_formulare', array($this->renderer, 'wp_mydoc_show_doctor_offices_files'));
+    add_shortcode('wp_mydoc_news', array($this->renderer, 'wp_mydoc_show_news'));
     add_shortcode('wp_mydoc_kontaktdaten_vorname', array($this->renderer, 'wp_mydoc_show_doctor_first_name'));
     add_shortcode('wp_mydoc_kontaktdaten_nachname', array($this->renderer, 'wp_mydoc_show_doctor_last_name'));
     add_shortcode('wp_mydoc_kontaktdaten_titel', array($this->renderer, 'wp_mydoc_show_doctor_title'));
@@ -134,6 +140,7 @@ class MyDocActionHandler {
     add_action('wp_enqueue_scripts', array($this, 'mydoc_load_absence_times'));
     add_action('wp_enqueue_scripts', array($this, 'mydoc_load_opening_times_local'));
     add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_doctor_offices_files'));
+    add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_news'));
     add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_doctor_first_name'));
     add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_doctor_last_name'));
     add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_doctor_title'));
@@ -163,7 +170,6 @@ class MyDocActionHandler {
       wp_localize_script('mydoc-opening-times-local-js', 'my_doc_config', get_configuration());
   }
 
-
   function mydoc_load_absence_times() {
       wp_enqueue_script('mydoc-absence-times-js', plugins_url( '/js/mydoc-absence-times.js', __FILE__ ));
       wp_localize_script('mydoc-absence-times-js', 'my_doc_config', get_configuration());
@@ -172,6 +178,11 @@ class MyDocActionHandler {
   function wp_mydoc_load_doctor_offices_files() {
       wp_enqueue_script('mydoc-doctor-offices-files-js', plugins_url( '/js/mydoc-doctor-offices-files.js', __FILE__ ));
       wp_localize_script('mydoc-doctor-offices-files-js', 'my_doc_config', get_configuration());
+  }
+
+  function wp_mydoc_load_news() {
+        wp_enqueue_script('mydoc-doctor-news-js', plugins_url( '/js/mydoc-doctor-news.js', __FILE__ ));
+        wp_localize_script('mydoc-doctor-news-js', 'my_doc_config', get_configuration());
   }
 
   function wp_mydoc_load_doctor_first_name() {
