@@ -46,6 +46,11 @@ class MyDocRenderer {
       return $team;
   }
 
+  public function wp_mydoc_show_team_count() {
+      $teamCount = '<span class="mydoc-team-count"></span>';
+      return $teamCount;
+  }
+
   public function wp_mydoc_show_doctor_first_name() {
     $first_name = '<span class="mydoc-doctor-first-name"></span>';
     return $first_name;
@@ -129,6 +134,7 @@ class MyDocShortcodeHandler {
     add_shortcode('wp_mydoc_news', array($this->renderer, 'wp_mydoc_show_news'));
     add_shortcode('wp_mydoc_pinnwand', array($this->renderer, 'wp_mydoc_show_pinnwand'));
     add_shortcode('wp_mydoc_team', array($this->renderer, 'wp_mydoc_show_team'));
+    add_shortcode('wp_mydoc_team_anzahl', array($this->renderer, 'wp_mydoc_show_team_count'));
     add_shortcode('wp_mydoc_kontaktdaten_vorname', array($this->renderer, 'wp_mydoc_show_doctor_first_name'));
     add_shortcode('wp_mydoc_kontaktdaten_nachname', array($this->renderer, 'wp_mydoc_show_doctor_last_name'));
     add_shortcode('wp_mydoc_kontaktdaten_titel', array($this->renderer, 'wp_mydoc_show_doctor_title'));
@@ -155,6 +161,7 @@ class MyDocActionHandler {
     add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_news'));
     add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_pinnwand'));
     add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_team'));
+    add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_team_count'));
     add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_doctor_first_name'));
     add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_doctor_last_name'));
     add_action('wp_enqueue_scripts', array($this, 'wp_mydoc_load_doctor_title'));
@@ -208,6 +215,11 @@ class MyDocActionHandler {
       wp_enqueue_script('mydoc-doctor-team-js', plugins_url( '/js/mydoc-team.js', __FILE__ ));
       wp_localize_script('mydoc-doctor-team-js', 'my_doc_config', get_configuration());
   }
+
+    function wp_mydoc_load_team_count() {
+        wp_enqueue_script('mydoc-doctor-team-count-js', plugins_url( '/js/mydoc-team-count.js', __FILE__ ));
+        wp_localize_script('mydoc-doctor-team-count-js', 'my_doc_config', get_configuration());
+    }
 
   function wp_mydoc_load_doctor_first_name() {
     wp_enqueue_script('mydoc-doctor-first-name-js', plugins_url( '/js/mydoc-doctor-first-name.js', __FILE__ ));
