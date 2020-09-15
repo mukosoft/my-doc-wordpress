@@ -237,7 +237,7 @@ new MyDocActionHandler();
 
 function get_configuration() {
   return array(
-      'api_key' => 'abc'
+      'api_key' => 'f429b7d6-f6a7-11ea-aff4-64652e69642d'
   );
 }
 
